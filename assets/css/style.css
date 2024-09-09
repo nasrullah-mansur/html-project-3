@@ -17,6 +17,7 @@ body {
     color: var(--body-color);
     font-size: 1.125rem;
     line-height: 1.75rem;
+    overflow-x: hidden;
 }
 
 h1,
@@ -30,16 +31,29 @@ h4 {
 
 .section-padding {
     padding-top: 5rem;
+
+    @media (max-width: 575.98px) {
+        padding-top: 4rem;
+    }
 }
 
 .section-margin {
     margin-top: 5rem;
+
+    @media (max-width: 575.98px) {
+        margin-top: 4rem;
+    }
 }
 
 .section-title {
     h2 {
         font-size: 3rem;
         line-height: 4rem;
+
+        @media (max-width: 575.98px) {
+            font-size: 2rem;
+            line-height: 2.625rem;
+        }
     }
 }
 
@@ -51,12 +65,48 @@ h4 {
     left: 0;
     z-index: 99;
 
+    .logo {
+        @media (max-width: 375px) {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        margin-left: 15px;
+        margin-right: 15px;
+        width: calc(100% - 30px);
+    }
+
     .container {
         padding: 15px 30px;
     }
 
     .list {
+        @media (max-width: 991.98px) {
+            width: 100%;
+            border-top: 1px solid #ccc;
+            padding: 30px 0 50px;
+            margin-top: 30px;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+            
+            ul {
+                flex-direction: column;
+
+                li a {
+                    display: block;
+                    padding: 10px;
+                    text-align: center;
+                }
+            }
+        }
+
         ul {
+
             li {
                 margin: 0 18px;
                 a {
@@ -75,11 +125,19 @@ h4 {
     }
 
     .action {
+
         .cart {
             margin-right: 30px;
             padding-right: 30px;
             border-right: 1px solid #ccc;
             cursor: pointer;
+
+            @media (max-width: 767.98px) {
+                margin-right: 15px;
+                padding-right: 20px;
+            }
+
+            
 
             i {
                 font-size: 28px;
@@ -152,6 +210,16 @@ h4 {
     background-repeat: no-repeat;
     z-index: 1;
 
+    @media (max-width: 575.98px) {
+        padding: 180px 0 120px;
+    }
+
+    .banner-text {
+        @media (max-width: 575.98px) {
+            text-align: center !important;
+        }
+    }
+
     &::after {
         content: '';
         width: 100%;
@@ -165,6 +233,10 @@ h4 {
 
     h1 {
         font-size: 9.063rem;
+
+        @media (max-width: 575.98px) {
+            font-size: 6rem;
+        }
     }
 
     p {
@@ -177,6 +249,8 @@ h4 {
     span {
         transform: translateX(-245px);
 
+        
+
         &::before {
             content: '';
             width: 230px;
@@ -186,6 +260,14 @@ h4 {
             left: 100%;
             top: 50%;
             margin-left: 15px;
+        }
+
+        @media (max-width: 575.98px) {
+            transform: translateX(0);
+
+            &::before {
+                display: none;
+            }
         }
     }
 
@@ -271,6 +353,7 @@ h4 {
             border: 1px solid #ccc;
             margin-top: 30px;
             border-radius: 15px;
+
 
             li a {
                 font-size: 1.125rem;
@@ -436,6 +519,24 @@ h4 {
         grid-template-columns: repeat(3, auto);
         grid-template-rows: repeat(2, 16.875rem);
 
+        
+
+        @media (max-width: 991.98px) {
+            grid-template-rows: repeat(2, 12.875rem);
+        }
+
+        @media (max-width: 767.98px) {
+            grid-template-rows: repeat(2, 8.875rem);
+            grid-template-columns: repeat(2, auto);
+            grid-gap: 15px;
+        }
+
+        @media (max-width: 575.98px) {
+            grid-template-columns: repeat(1, auto);
+        }
+
+        
+
 
         .gallery-item {
             overflow: hidden;
@@ -551,5 +652,179 @@ h4 {
         .gallery-item:first-child {
             grid-row: 1/3;
         }
+    }
+}
+
+/* Footer */
+.footer {
+    padding-top: 60px;
+    background-color: var(--black-bg);
+
+    .footer-logo {
+        margin-bottom: 60px;
+
+        &::before {
+            content: '';
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            top: 55%;
+            left: 0;
+            z-index: -1;
+        }
+
+        a {
+            background-color: var(--black-bg);
+            padding: 0 30px;
+        }
+
+
+    }
+
+    .footer-title {
+        font-size: 1.375rem;
+        margin-bottom: 1.6rem;
+    }
+
+    p,
+    a,
+    span {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+        line-height: 1.6rem;
+    }
+
+    .footer-social {
+        margin-top: 30px;
+
+        li a {
+            width: 35px;
+            height: 35px;
+            background-color: #3F3F3F;
+            margin-right: 10px;
+            transition: var(--transition);
+
+            &:hover {
+                background-color: var(--primary-color);
+            }
+        }
+    }
+
+    .explore a {
+        transition: var(--transition);
+
+        &:hover {
+            color: var(--primary-color);
+        }
+    }
+
+    .contact-info-list {
+        li {
+            margin-bottom: 15px;
+            padding-left: 55px;
+
+            a {
+                text-decoration: none;
+                display: block;
+                transition: var(--transition);
+
+                &:hover {
+                    color: var(--primary-color);
+                }
+            }
+
+            i {
+                width: 35px;
+                height: 35px;
+                background-color: var(--primary-color);
+                color: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                left: 0;
+                top: 10px;
+            }
+        }
+    }
+
+    .subscription {
+        input {
+            background-color: transparent;
+            height: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0 15px;
+            border-radius: 5px;
+
+        }
+
+        button {
+            width: 200px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+        }
+    }
+
+    .copyright {
+        margin-top: 60px;
+        background-color: #262525;
+        padding: 25px;
+
+    }
+}
+
+/* 
+******************** Modal CSS ****************
+*/
+
+.food-cart-modal {
+    img {
+        width: 80px;
+    }
+
+    tr {
+        td {
+            vertical-align: middle;
+        }
+
+        .quantity-area {
+            li {
+                cursor: pointer;
+                width: 25px;
+                height: 25px;
+                border: 1px solid var(--primary-color);
+                margin-left: 5px;
+                transition: var(--transition);
+                
+                i {
+                    font-size: 12px;
+                    color: var(--primary-color);
+                    transition: var(--transition);
+                }
+
+                &:hover {
+                    background-color: var(--primary-color);
+
+                    i {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .action {
+            cursor: pointer;
+
+            i {
+                color: var(--primary-color);
+            }
+        }
+
+    }
+
+    .btn-custom {
+        background-color: var(--primary-color);
     }
 }

@@ -18,13 +18,13 @@
     <!-- Header Start -->
     <header class="header">
         <div class="container bg-white rounded-4">
-            <div class="header-content d-flex justify-content-between align-items-lg-center">
-                <div class="logo">
+            <div class="header-content d-flex flex-wrap justify-content-between align-items-lg-center">
+                <div class="logo order-1 order-lg-1">
                     <a href="#">
                         <img src="assets/images/logo.png" alt="logo">
                     </a>
                 </div>
-                <div class="list">
+                <div class="list order-3 order-lg-2" id="menu-list">
                     <ul class="list-unstyled d-flex mb-0">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About</a></li>
@@ -32,12 +32,12 @@
                         <li><a href="#">Contact</a></li>                         
                     </ul>
                 </div>
-                <div class="action d-flex align-items-center">
-                    <div class="cart position-relative">
+                <div class="action order-2 order-lg-3 d-flex align-items-center">
+                    <div class="cart position-relative" data-bs-toggle="modal" data-bs-target="#foodModal">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="d-flex justify-content-center align-items-center rounded-circle position-absolute text-white ">10</span>
                     </div>
-                    <div class="menu-toggle">
+                    <div class="menu-toggle" id="menu-toggle">
                         <span></span>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="about-content">
+                    <div class="about-content mt-4 mt-lg-0">
                         <div class="section-title">
                             <h2>Best food ideas & <br> traditions in the world</h2>
                         </div>
@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="food-table position-relative">
+                                    <div class="food-table mt-4 mt-lg-0 position-relative">
                                         <ul class="m-0 list-unstyled text-white">
                                             <li>
                                                 <h4 class="text-white">Breakfast</h4>
@@ -120,7 +120,7 @@
                 <h2>Our Specials Menu</h2>
             </div>
             <div class="menu-list d-flex justify-content-center mb-4">
-                <ul class="list-unstyled d-flex justify-content-center">
+                <ul class="list-unstyled d-flex flex-wrap justify-content-center">
                     <li><a class="text-decoration-none d-inline-block text-uppercase" href="#">Main Dishes</a></li>
                     <li><a class="text-decoration-none d-inline-block text-uppercase" href="#">Main Dishes</a></li>
                     <li><a class="text-decoration-none d-inline-block text-uppercase" href="#">Main Dishes</a></li>
@@ -129,7 +129,7 @@
                 </ul>
             </div>
             <div class="row">
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="food-cart-item">
                         <div class="img position-relative">
                             <img class="img-fluid w-100" src="assets/images/food-1.png" alt="img">
@@ -156,7 +156,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="food-cart-item">
                         <div class="img position-relative">
                             <img class="img-fluid w-100" src="assets/images/food-1.png" alt="img">
@@ -183,7 +183,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="food-cart-item">
                         <div class="img position-relative">
                             <img class="img-fluid w-100" src="assets/images/food-1.png" alt="img">
@@ -210,7 +210,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="food-cart-item">
                         <div class="img position-relative">
                             <img class="img-fluid w-100" src="assets/images/food-1.png" alt="img">
@@ -237,7 +237,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="food-cart-item">
                         <div class="img position-relative">
                             <img class="img-fluid w-100" src="assets/images/food-1.png" alt="img">
@@ -264,7 +264,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="food-cart-item">
                         <div class="img position-relative">
                             <img class="img-fluid w-100" src="assets/images/food-1.png" alt="img">
@@ -306,16 +306,16 @@
                             <h2 class="text-white">Reservation Your Favorite Private Table</h2>
                         </div>
                         <p class="des">A relaxing and pleasant atmosphere, good jazz, dinner, and cocktails. The Patio Time Bar opens in the center of Florence. The only bar inspired by the 1960s, it will give you a experience that you’ll have a hard time forgetting.</p>
-                        <ul class="d-flex list-unstyled pt-3">
-                            <li>
+                        <ul class="d-flex list-unstyled flex-wrap pt-3">
+                            <li class="mb-3 mb-lg-0">
                                 <h5 class="text-white">Breakfast Menu</h5>
                                 <span>125+ items</span>
                             </li>
-                            <li>
+                            <li class="mb-3 mb-lg-0">
                                 <h5 class="text-white">Lunch Menu</h5>
                                 <span>125+ items</span>
                             </li>
-                            <li>
+                            <li class="mb-3 mb-lg-0">
                                 <h5 class="text-white">Dinner Menu</h5>
                                 <span>125+ items</span>
                             </li>
@@ -416,6 +416,235 @@
         </div>
      </div>
     <!-- Food Gallery end -->
+
+    <!-- Footer Start -->
+    <footer class="footer section-margin">
+        <div class="container">
+            <div class="footer-logo position-relative text-center z-3">
+                <a class="d-inline-block" href="#">
+                    <img src="assets/images/footer-logo.png" alt="footer logo">
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-about">
+                        <h3 class="footer-title text-white">About</h3>
+                        <p>Continued at zealously necessary is Surrounded sir motionless she end literature. Gay direction neglected.</p>
+                        <ul class="footer-social list-unstyled d-flex">
+                            <li><a class="d-inline-flex justify-content-center align-items-center text-decoration-none" href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a class="d-inline-flex justify-content-center align-items-center text-decoration-none" href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                            <li><a class="d-inline-flex justify-content-center align-items-center text-decoration-none" href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a class="d-inline-flex justify-content-center align-items-center text-decoration-none" href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="explore">
+                        <h3 class="footer-title text-white">Explore</h3>
+
+                        <ul class="list-unstyled">
+                            <li><a class="text-decoration-none" href="#">Home</a></li>
+                            <li><a class="text-decoration-none" href="#">About</a></li>
+                            <li><a class="text-decoration-none" href="#">Contact</a></li>
+                            <li><a class="text-decoration-none" href="#">Return Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="contact-info">
+                        <h3 class="footer-title text-white">Contact Info</h3>
+
+                        <ul class="contact-info-list list-unstyled">
+                            <li class="position-relative">
+                                <i class="fa-solid fa-location-arrow"></i>
+                                <span>Dogair Bazar, Signboard, demra, Dhaka - 1206</span>
+                            </li>
+                            <li class="position-relative">
+                                <i class="fa-solid fa-phone"></i>
+                                <a href="tel:+8801728619733">+880 1728 619733</a>
+                                <a href="tel:+8801728000000">+880 1728 000000</a>
+                            </li>
+
+                            <li class="position-relative">
+                                <i class="fa-regular fa-paper-plane"></i>
+                                <a href="mailto:nasrullah.cit.bd@gmail.com">nasrullah.cit.bd@gmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="subscription mt-5 mt-lg-0">
+                        <h3 class="footer-title text-white">Subscription</h3>
+                        <p>Join our subscribers list to get the latest news and special offers.</p>
+                        <form>
+                            <input class="d-block w-100 text-white" type="email" placeholder="Your email">
+                            <button class="text-white text-uppercase border-0 mt-2" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0 text-center text-white-50">&copy; Copyright 2024 Restan. All Rights Reserved by Restan.</p>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+
+    <!-- Cart Modal -->
+<div class="modal food-cart-modal fade" id="foodModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2 class="text-center pt-2 pb-4">Your Cart Items</h2>
+          <div class="table-responsive">
+              <table class="table table-striped table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity </th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                        <img src="assets/images/food-1.png" alt="img">
+                    </td>
+                    <td>
+                        <span class="title">Braised Chicken Legs</span>
+                    </td>
+                    <td>
+                        <span class="price">$12.00</span>
+                    </td>
+                    <td>
+                        <div class="quantity-area d-flex align-items-center">
+                            <span class="quantity d-block mr-2">1</span>
+                            <div class="plus-minus">
+                                <ul class="d-flex list-unstyled m-0">
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-minus"></i></li>
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-plus"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="total">$12.00</span>
+                    </td>
+                    <td>
+                        <span class="action">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <img src="assets/images/food-1.png" alt="img">
+                    </td>
+                    <td>
+                        <span class="title">Braised Chicken Legs</span>
+                    </td>
+                    <td>
+                        <span class="price">$12.00</span>
+                    </td>
+                    <td>
+                        <div class="quantity-area d-flex align-items-center">
+                            <span class="quantity d-block mr-2">1</span>
+                            <div class="plus-minus">
+                                <ul class="d-flex list-unstyled m-0">
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-minus"></i></li>
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-plus"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="total">$12.00</span>
+                    </td>
+                    <td>
+                        <span class="action">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <img src="assets/images/food-1.png" alt="img">
+                    </td>
+                    <td>
+                        <span class="title">Braised Chicken Legs</span>
+                    </td>
+                    <td>
+                        <span class="price">$12.00</span>
+                    </td>
+                    <td>
+                        <div class="quantity-area d-flex align-items-center">
+                            <span class="quantity d-block mr-2">1</span>
+                            <div class="plus-minus">
+                                <ul class="d-flex list-unstyled m-0">
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-minus"></i></li>
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-plus"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="total">$12.00</span>
+                    </td>
+                    <td>
+                        <span class="action">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <img src="assets/images/food-1.png" alt="img">
+                    </td>
+                    <td>
+                        <span class="title">Braised Chicken Legs</span>
+                    </td>
+                    <td>
+                        <span class="price">$12.00</span>
+                    </td>
+                    <td>
+                        <div class="quantity-area d-flex align-items-center">
+                            <span class="quantity d-block mr-2">1</span>
+                            <div class="plus-minus">
+                                <ul class="d-flex list-unstyled m-0">
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-minus"></i></li>
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-plus"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="total">$12.00</span>
+                    </td>
+                    <td>
+                        <span class="action">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </span>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+          </div>
+          <div class="total-count">
+            <strong class="h2 d-block text-end text-dark">Total Amount: $27.00</strong>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn text-white btn-custom">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Script -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
