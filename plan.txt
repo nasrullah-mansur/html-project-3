@@ -1,0 +1,6 @@
+1. fetch categories from online link;
+2. fetch food items from online link;
+
+3. add to cart develop;
+4. card items calculation;
+

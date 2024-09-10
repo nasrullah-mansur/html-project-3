@@ -363,6 +363,7 @@ h4 {
                 border-radius: 15px;
                 transition: all ease .3s;
                 
+                &.active,
                 &:hover {
                     background-color: var(--primary-color);
                     color: #fff;
@@ -441,6 +442,7 @@ h4 {
                 transition: var(--transition);
             }
 
+            &.active,
             &:hover {
                 background-color: var(--primary-color);
 
