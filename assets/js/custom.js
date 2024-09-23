@@ -13,10 +13,81 @@ function menu_responsive() {
 function init() {
     menu_responsive();
     foodCategories();
-    randomFoods();
+    appendFoodItemsToHtml("https://course.divinecoder.com/food/random/6");
 }
 
 // ****************** Helper Functions **************************
+let activeFoodItems = [];
+
+let activeCartItems = [
+    {
+    "id": 27,
+    "category_id": "16",
+    "image": "https://course.divinecoder.com/images/1727075607.jpeg",
+    "name": "chicken Fry",
+    "price": "894",
+    "rating": "42",
+    "rating_count": "35",
+    "facilities": "best food",
+    "category_name": "Chicken Fry"
+    },
+    {
+    "id": 17,
+    "category_id": "18",
+    "image": "https://course.divinecoder.com/images/1726940737.jpg",
+    "name": "Shawarma",
+    "price": "199",
+    "rating": "50",
+    "rating_count": "100",
+    "facilities": "This is a healthful",
+    "category_name": "text admin"
+    },
+    {
+    "id": 35,
+    "category_id": "44",
+    "image": "https://course.divinecoder.com/images/1727082062.jpg",
+    "name": "spring rools",
+    "price": "678",
+    "rating": "54",
+    "rating_count": "21",
+    "facilities": "best food",
+    "category_name": "Spring rools"
+    },
+    {
+    "id": 43,
+    "category_id": "18",
+    "image": "https://course.divinecoder.com/images/1727083199.jpeg",
+    "name": "shawarma",
+    "price": "534",
+    "rating": "11",
+    "rating_count": "21",
+    "facilities": "best food",
+    "category_name": "text admin"
+    },
+    {
+    "id": 45,
+    "category_id": "18",
+    "image": "https://course.divinecoder.com/images/1727083299.jpeg",
+    "name": "shawarma",
+    "price": "324",
+    "rating": "12",
+    "rating_count": "13",
+    "facilities": "food",
+    "category_name": "text admin"
+    },
+    {
+    "id": 42,
+    "category_id": "16",
+    "image": "https://course.divinecoder.com/images/1727082896.jpg",
+    "name": "chicken Fry",
+    "price": "343",
+    "rating": "23",
+    "rating_count": "21",
+    "facilities": "food",
+    "category_name": "Chicken Fry"
+    }
+    ];
+
 function foodCart(food) {
     return `<div class="col-lg-4 col-md-6 mb-4">
             <div class="food-cart-item">
@@ -39,15 +110,15 @@ function foodCart(food) {
                         <li class="position-relative">Chili sauce</li>
                     </ul>
                 </div>
-                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
+                <a href="#" class="${food.isAddedToCart ? "active" : ''} add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
                     <i class="fa-solid fa-cart-plus"></i>
-                    <span class="d-inline-block">Add to cart</span>
+                    <span class="d-inline-block">${food.isAddedToCart ? "Already added" : 'Add to cart'}</span>
                 </a>
             </div>
         </div>`;
 }
 
-async function appendFoodItemsToHtml(link) {
+async function appendFoodItemsToHtml(link, callback = () => {}) {
     try {
         let response = await fetch(link);
         let data = await response.json();
@@ -55,9 +126,22 @@ async function appendFoodItemsToHtml(link) {
 
         data = Array.isArray(data) ? data : data.data;
 
-        let finalOutput = data.map(food => {
-            document.getElementById('food_gallery').innerHTML += foodCart(food);
-        });
+        activeFoodItems = data.map(item => {
+
+            let checkActivity = activeCartItems.some(activeItem => activeItem.id == item.id);
+
+            return {
+                ...item,
+                isAddedToCart: checkActivity,
+            };
+        })
+
+        console.log(activeFoodItems);
+        
+
+        document.getElementById('food_gallery').innerHTML = activeFoodItems.map(food => foodCart(food)).join('');
+
+        callback();
 
 
     } catch (error) {
@@ -74,9 +158,7 @@ async function foodCategories() {
         
         document.getElementById('category_list').innerHTML = '';
 
-        data.forEach((item) => {
-            document.getElementById('category_list').innerHTML += `<li data-id="${item.id}"><a class="text-decoration-none d-inline-block text-uppercase" href="#">${item.name}</a></li>`;
-        })
+        document.getElementById('category_list').innerHTML = data.map(item => `<li data-id="${item.id}"><a class="text-decoration-none d-inline-block text-uppercase" href="#">${item.name}</a></li>`).join('');
 
         foodItemsByCategory();
 
@@ -86,10 +168,6 @@ async function foodCategories() {
     
 }
 
-function randomFoods() {
-    appendFoodItemsToHtml("https://course.divinecoder.com/food/random/6");
-}
-
 async function foodItemsByCategory() {
     let lis = document.querySelectorAll('#category_list li');
     
@@ -97,11 +175,17 @@ async function foodItemsByCategory() {
         li.addEventListener('click', function(event) {
             event.preventDefault();
             let categoryId = li.getAttribute('data-id');
+            li.classList.add('active');
 
-            appendFoodItemsToHtml(`https://course.divinecoder.com/food/by-category/${categoryId}/6`);
+            appendFoodItemsToHtml(`https://course.divinecoder.com/food/by-category/${categoryId}/6`, () => {
+                li.classList.remove('active');
+            });
             
         })
     })
 
 }
 
+function myCart() {
+
+}

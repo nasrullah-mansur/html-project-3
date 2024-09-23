@@ -57,6 +57,7 @@ h4 {
     }
 }
 
+
 /* Header */
 .header {
     position: absolute;
@@ -354,7 +355,6 @@ h4 {
             margin-top: 30px;
             border-radius: 15px;
 
-
             li a {
                 font-size: 1.125rem;
                 font-weight: 700;
@@ -369,6 +369,12 @@ h4 {
                     color: #fff;
                 }
             }
+
+            li.active {
+                pointer-events: none;
+                cursor: default;
+                opacity: 0.5;
+            }
         }
         
     }
@@ -377,6 +383,11 @@ h4 {
         border: var(--border-1px);
         border-radius: 10px;
         overflow: hidden;
+
+        img {
+            height: 270px;
+            object-fit: cover;
+        }
 
         .overlay {
             background-color: #fff;
@@ -445,11 +456,16 @@ h4 {
             &.active,
             &:hover {
                 background-color: var(--primary-color);
-
+                
                 span,
                 i {
                     color: #fff;
                 }
+            }
+
+            &.active {
+                pointer-events: none;
+                opacity: 0.6;
             }
         }
     }
