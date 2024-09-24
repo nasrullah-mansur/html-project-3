@@ -1,4 +1,6 @@
-init();
+// ****************** Helper Variables **************************
+let activeFoodItems = [];
+let activeCartItems = [];
 
 function menu_responsive() {
     let menuToggle = document.getElementById('menu-toggle');
@@ -7,87 +9,19 @@ function menu_responsive() {
     menuToggle.addEventListener('click', function() {
         menuList.classList.toggle('active');    
     });
+
 }
 
 // ****************** Function Init **************************
-function init() {
+(() => {
     menu_responsive();
+    cartItemCount();
     foodCategories();
     appendFoodItemsToHtml("https://course.divinecoder.com/food/random/6");
-}
+    
+})();
 
 // ****************** Helper Functions **************************
-let activeFoodItems = [];
-
-let activeCartItems = [
-    {
-    "id": 27,
-    "category_id": "16",
-    "image": "https://course.divinecoder.com/images/1727075607.jpeg",
-    "name": "chicken Fry",
-    "price": "894",
-    "rating": "42",
-    "rating_count": "35",
-    "facilities": "best food",
-    "category_name": "Chicken Fry"
-    },
-    {
-    "id": 17,
-    "category_id": "18",
-    "image": "https://course.divinecoder.com/images/1726940737.jpg",
-    "name": "Shawarma",
-    "price": "199",
-    "rating": "50",
-    "rating_count": "100",
-    "facilities": "This is a healthful",
-    "category_name": "text admin"
-    },
-    {
-    "id": 35,
-    "category_id": "44",
-    "image": "https://course.divinecoder.com/images/1727082062.jpg",
-    "name": "spring rools",
-    "price": "678",
-    "rating": "54",
-    "rating_count": "21",
-    "facilities": "best food",
-    "category_name": "Spring rools"
-    },
-    {
-    "id": 43,
-    "category_id": "18",
-    "image": "https://course.divinecoder.com/images/1727083199.jpeg",
-    "name": "shawarma",
-    "price": "534",
-    "rating": "11",
-    "rating_count": "21",
-    "facilities": "best food",
-    "category_name": "text admin"
-    },
-    {
-    "id": 45,
-    "category_id": "18",
-    "image": "https://course.divinecoder.com/images/1727083299.jpeg",
-    "name": "shawarma",
-    "price": "324",
-    "rating": "12",
-    "rating_count": "13",
-    "facilities": "food",
-    "category_name": "text admin"
-    },
-    {
-    "id": 42,
-    "category_id": "16",
-    "image": "https://course.divinecoder.com/images/1727082896.jpg",
-    "name": "chicken Fry",
-    "price": "343",
-    "rating": "23",
-    "rating_count": "21",
-    "facilities": "food",
-    "category_name": "Chicken Fry"
-    }
-    ];
-
 function foodCart(food) {
     return `<div class="col-lg-4 col-md-6 mb-4">
             <div class="food-cart-item">
@@ -110,7 +44,7 @@ function foodCart(food) {
                         <li class="position-relative">Chili sauce</li>
                     </ul>
                 </div>
-                <a href="#" class="${food.isAddedToCart ? "active" : ''} add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
+                <a href="#" data-id="${food.id}" class="${food.isAddedToCart ? "active" : ''} add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
                     <i class="fa-solid fa-cart-plus"></i>
                     <span class="d-inline-block">${food.isAddedToCart ? "Already added" : 'Add to cart'}</span>
                 </a>
@@ -123,27 +57,19 @@ async function appendFoodItemsToHtml(link, callback = () => {}) {
         let response = await fetch(link);
         let data = await response.json();
         document.getElementById('food_gallery').innerHTML = '';
-
         data = Array.isArray(data) ? data : data.data;
-
         activeFoodItems = data.map(item => {
-
             let checkActivity = activeCartItems.some(activeItem => activeItem.id == item.id);
-
             return {
                 ...item,
                 isAddedToCart: checkActivity,
             };
         })
 
-        console.log(activeFoodItems);
-        
-
         document.getElementById('food_gallery').innerHTML = activeFoodItems.map(food => foodCart(food)).join('');
 
         callback();
-
-
+        addToCartHandler();
     } catch (error) {
         console.log(error);
     }
@@ -151,32 +77,23 @@ async function appendFoodItemsToHtml(link, callback = () => {}) {
 
 // ****************** Handler Functions **************************
 async function foodCategories() {
-
     try {
         let response = await fetch('https://course.divinecoder.com/food-categories');
         let data = await response.json();
-        
-        document.getElementById('category_list').innerHTML = '';
-
         document.getElementById('category_list').innerHTML = data.map(item => `<li data-id="${item.id}"><a class="text-decoration-none d-inline-block text-uppercase" href="#">${item.name}</a></li>`).join('');
-
         foodItemsByCategory();
-
     } catch (error) {
         console.log(error);
     }
-    
 }
 
 async function foodItemsByCategory() {
     let lis = document.querySelectorAll('#category_list li');
-    
     let finalLiList = Array.from(lis).map(li => {
         li.addEventListener('click', function(event) {
             event.preventDefault();
             let categoryId = li.getAttribute('data-id');
             li.classList.add('active');
-
             appendFoodItemsToHtml(`https://course.divinecoder.com/food/by-category/${categoryId}/6`, () => {
                 li.classList.remove('active');
             });
@@ -186,6 +103,83 @@ async function foodItemsByCategory() {
 
 }
 
-function myCart() {
+function cartItemCount() {
+    let cartCountElements = document.querySelectorAll('.cart_item_count');
+    let count = activeCartItems.length;
+    count = count > 9 ? count : "0" + count;
 
+    Array.from(cartCountElements).forEach(element => {
+        if(count > 0) {
+            element.classList.remove('d-none');
+        } else {
+            element.classList.add('d-none');
+        }
+        element.textContent = count;
+    })
+    
+}
+
+function addToCartHandler() {
+    let addToCartBtns = document.querySelectorAll('.add-to-cart');
+    Array.from(addToCartBtns).forEach(btn => {
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            let id = btn.getAttribute('data-id');
+            let cartItem = activeFoodItems.find(item => {
+                return item.id == id;
+            })
+            let checkActivity = activeCartItems.some(item => item.id == id);
+            if(checkActivity == false) {
+                activeCartItems.push({
+                    id: cartItem.id,
+                    image: cartItem.image,
+                    price: cartItem.price,
+                    name: cartItem.name,
+                    quantity: 1,
+                    total: cartItem.price
+                })
+            }
+            cartItemCount();
+            appendCartItemHtmlToPopup();
+        })
+    })
+}
+
+function appendCartItemHtmlToPopup() {
+    let cartHtml = (food) => {
+        return `<tr>
+                    <td>
+                        <img src="${food.image}" alt="img">
+                    </td>
+                    <td>
+                        <span class="title">${food.name}</span>
+                    </td>
+                    <td>
+                        <span class="price">TK: ${food.price}</span>
+                    </td>
+                    <td>
+                        <div class="quantity-area d-flex align-items-center">
+                            <span class="quantity d-block mr-2">${food.quantity}</span>
+                            <div class="plus-minus">
+                                <ul class="d-flex list-unstyled m-0">
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-minus"></i></li>
+                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-plus"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="total">TK: ${food.total}</span>
+                    </td>
+                    <td>
+                        <span class="action">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </span>
+                    </td>
+                  </tr>`;
+    }
+    let cartItemLooping = activeCartItems.map(food => {
+        return cartHtml(food);
+    })
+    document.getElementById('cart_item_table').innerHTML = cartItemLooping.join('');
 }

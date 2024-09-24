@@ -57,6 +57,45 @@ h4 {
     }
 }
 
+.cart-fixed-btn {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 99;
+    padding: 20px 30px 10px 20px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border: var(--border-1px);
+    background-color: #fff;
+
+    .cart {
+        cursor: pointer;
+
+        @media (max-width: 767.98px) {
+            margin-right: 15px;
+            padding-right: 20px;
+        }
+
+        
+
+        i {
+            font-size: 28px;
+            color: var(--title-color);
+        }
+
+        span {
+            width: 25px;
+            height: 25px;
+            background-color: var(--primary-color);
+            font-size: 12px;
+            top: -15px;
+            left: 20px;
+            font-weight: 600;
+
+        }
+    }
+}
+
 
 /* Header */
 .header {
