@@ -18,11 +18,20 @@ function menu_responsive() {
     cartItemCount();
     foodCategories();
     appendFoodItemsToHtml("https://course.divinecoder.com/food/random/6");
-    
+    removeItemFromCart();
+    quantityHandler();
 })();
 
 // ****************** Helper Functions **************************
 function foodCart(food) {
+
+    let facilities = food.facilities.split(', ').map(item => {
+        return `<li class="position-relative">${item}</li>`;
+    })
+    
+
+    
+
     return `<div class="col-lg-4 col-md-6 mb-4">
             <div class="food-cart-item">
                 <div class="img position-relative">
@@ -36,17 +45,12 @@ function foodCart(food) {
                 <div class="text">
                     <h4 class="pb-2">${food.name}</h4>
                     <ul class="list-unstyled d-flex flex-wrap">
-                        <li class="position-relative">4 chicken legs</li>
-                        <li class="position-relative">Chili sauce</li>
-                        <li class="position-relative">4 chicken legs</li>
-                        <li class="position-relative">Soft Drinks</li>
-                        <li class="position-relative">Soft Drinks</li>
-                        <li class="position-relative">Chili sauce</li>
+                        ${facilities.join(' ')}
                     </ul>
                 </div>
                 <a href="#" data-id="${food.id}" class="${food.isAddedToCart ? "active" : ''} add-to-cart d-flex justify-content-center align-items-center text-decoration-none">
                     <i class="fa-solid fa-cart-plus"></i>
-                    <span class="d-inline-block">${food.isAddedToCart ? "Already added" : 'Add to cart'}</span>
+                    <span class="d-inline-block">${food.isAddedToCart ? "Added to cart" : 'Add to cart'}</span>
                 </a>
             </div>
         </div>`;
@@ -73,6 +77,45 @@ async function appendFoodItemsToHtml(link, callback = () => {}) {
     } catch (error) {
         console.log(error);
     }
+}
+
+function appendCartItemHtmlToPopup() {
+    let cartHtml = (food) => {
+        return `<tr>
+                    <td>
+                        <img src="${food.image}" alt="img">
+                    </td>
+                    <td>
+                        <span class="title">${food.name}</span>
+                    </td>
+                    <td>
+                        <span class="price">TK: ${food.price}</span>
+                    </td>
+                    <td>
+                        <div class="quantity-area d-flex align-items-center">
+                            <span class="quantity d-block mr-2">${food.quantity}</span>
+                            <div class="plus-minus">
+                                <ul class="d-flex list-unstyled m-0">
+                                    <li data-id="${food.id}" class="quantity-decrement d-flex justify-content-center align-items-center"><i class="fa-solid fa-minus"></i></li>
+                                    <li data-id="${food.id}" class="quantity-increment d-flex justify-content-center align-items-center"><i class="fa-solid fa-plus"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="total">TK: ${food.total}</span>
+                    </td>
+                    <td>
+                        <span class="action">
+                            <i data-id="${food.id}" class="delete-cart-item fa-solid fa-trash-can"></i>
+                        </span>
+                    </td>
+                  </tr>`;
+    }
+    let cartItemLooping = activeCartItems.map(food => {
+        return cartHtml(food);
+    })
+    document.getElementById('cart_item_table').innerHTML = cartItemLooping.join('');
 }
 
 // ****************** Handler Functions **************************
@@ -133,53 +176,125 @@ function addToCartHandler() {
                 activeCartItems.push({
                     id: cartItem.id,
                     image: cartItem.image,
-                    price: cartItem.price,
+                    price: Number(cartItem.price),
                     name: cartItem.name,
                     quantity: 1,
-                    total: cartItem.price
+                    total: Number(cartItem.price)
                 })
             }
+
             cartItemCount();
             appendCartItemHtmlToPopup();
+            changeButtonDesign(id);
+            totalCount();
         })
     })
 }
 
-function appendCartItemHtmlToPopup() {
-    let cartHtml = (food) => {
-        return `<tr>
-                    <td>
-                        <img src="${food.image}" alt="img">
-                    </td>
-                    <td>
-                        <span class="title">${food.name}</span>
-                    </td>
-                    <td>
-                        <span class="price">TK: ${food.price}</span>
-                    </td>
-                    <td>
-                        <div class="quantity-area d-flex align-items-center">
-                            <span class="quantity d-block mr-2">${food.quantity}</span>
-                            <div class="plus-minus">
-                                <ul class="d-flex list-unstyled m-0">
-                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-minus"></i></li>
-                                    <li class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-plus"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="total">TK: ${food.total}</span>
-                    </td>
-                    <td>
-                        <span class="action">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </span>
-                    </td>
-                  </tr>`;
+function changeButtonDesign(id) {
+    let myButton = document.querySelector(`.add-to-cart[data-id="${id}"]`)
+
+    myButton.classList.toggle('active');
+
+    if(myButton.classList.contains('active')) {
+        myButton.querySelector('span').textContent = 'Added to cart';
+    } else {
+        myButton.querySelector('span').textContent = 'Add to cart';
     }
-    let cartItemLooping = activeCartItems.map(food => {
-        return cartHtml(food);
+}
+
+
+function removeItemFromCart() {
+    let cartTable = document.getElementById('cart_item_table');
+
+    cartTable.addEventListener('click', function(event) {
+        if(event.target.classList.contains('delete-cart-item')) {
+            let id = event.target.getAttribute('data-id');
+
+            activeCartItems = activeCartItems.filter(function(item) {
+                return item.id != id;
+            });
+
+            cartItemCount();
+            appendCartItemHtmlToPopup();
+            changeButtonDesign(id);
+        }
     })
-    document.getElementById('cart_item_table').innerHTML = cartItemLooping.join('');
+
+    
+}
+
+function totalCount() {
+    
+    let count = activeCartItems.reduce((total, runningItem) => {
+        return (total + runningItem.total);
+    }, 0);
+
+    let totalText = `Total Amount: ${count} TK`;
+
+    document.getElementById('total-count-element').innerHTML = totalText;
+}
+
+
+function quantityHandler() {
+    let cartTable = document.getElementById('cart_item_table');
+
+    cartTable.addEventListener('click', function(event) {
+       
+        if(event.target.closest('.quantity-increment')) {
+            let id = event.target.closest('.quantity-increment').getAttribute('data-id');
+
+            let targetItem = activeCartItems.find(item => item.id == id);
+            
+            if(targetItem.quantity < 5) {
+                targetItem = {
+                    ...targetItem,
+                    quantity: targetItem.quantity + 1,
+                    total: targetItem.total + targetItem.price,
+                }
+
+                activeCartItems = activeCartItems.map(item => {
+                    if(item.id == id) {
+                        return targetItem;
+                    } else {
+                        return item;
+                    }
+                })
+
+                appendCartItemHtmlToPopup();
+                totalCount();
+
+            }
+            
+            
+        }
+
+        if(event.target.closest('.quantity-decrement')) {
+            let id = event.target.closest('.quantity-decrement').getAttribute('data-id');
+
+            let targetItem = activeCartItems.find(item => item.id == id);
+            
+            if(targetItem.quantity > 1) {
+                targetItem = {
+                    ...targetItem,
+                    quantity: targetItem.quantity - 1,
+                    total: targetItem.total - targetItem.price,
+                }
+
+                activeCartItems = activeCartItems.map(item => {
+                    if(item.id == id) {
+                        return targetItem;
+                    } else {
+                        return item;
+                    }
+                })
+
+                appendCartItemHtmlToPopup();
+                totalCount();
+
+            }
+            
+            
+        }
+    })
 }
